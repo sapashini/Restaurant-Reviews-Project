@@ -1,1 +1,1 @@
-js/map_key.js;
+js/map_key.js
