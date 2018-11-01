@@ -182,6 +182,10 @@ nav h1 a {
   text-transform: uppercase;
 }
 
+#restaurants-list li {
+    max-width: 100%;
+  }
+
 /* ====================== Restaurant Details ====================== */
 .inside header {
   position: fixed;
