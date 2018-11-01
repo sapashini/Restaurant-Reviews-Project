@@ -24,18 +24,23 @@
   </header>
 
   <main id="maincontent">
-    <section id="map-container">
+    <section id="map-container" aria-labellabelby="map-aria-description" role="application">
       <div id="map"></div>
     </section>
+    <label for="restaurants locations" id="map-aria-description">Restaurants Location</label>
     <section>
       <div class="filter-options">
         <h2>Filter Results</h2>
-        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
-          <option value="all">All Neighborhoods</option>
-        </select>
-        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
-          <option value="all">All Cuisines</option>
-        </select>
+        <div class="filters">
+          <label for="all neighborhoods" class="filter-label">Pick a Neighborhood</label>
+          <select role="tablist" tabindex="2" id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+            <option value="all">All Neighborhoods</option>
+          </select>
+          <label for="all cuisines" class="filter-label">Cuisine Type</label>
+          <select tabindex="2" id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+            <option value="all">All Cuisines</option>
+          </select>
+      </div>
       </div>
       <ul id="restaurants-list"></ul>
     </section>
