@@ -324,3 +324,16 @@ nav h1 a {
   border-top: 1px solid #fff;*/
   padding: 5px 0 30px 35px;
 }
+
+.skip-link {
+    display: block;
+    /*position: absolute;*/
+    top: 15px;
+    left: -1000px;
+    background-color: white;
+    padding: 1px 1px;
+    background-color: #f3f3f3
+}
+.skip-link:focus {
+    left: 15px;
+}

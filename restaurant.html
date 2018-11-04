@@ -25,8 +25,10 @@
     <nav>
       <h1 id="detail-heading"><a arial-label="Home" tabindex="1" href="/" title="Main Heading">Restaurant Reviews</a></h1>
     </nav>
+    <!-- Skip link -->
+    <a href="#restaurants-name" class="skip-link">Skip to main content</a>
     <!-- Beginning breadcrumb -->
-    <ul id="breadcrumb" >
+    <ul id="breadcrumb" aria-label="Breadcrumb">
       <li><a href="/">Home</a></li>
     </ul>
     <!-- End breadcrumb -->
@@ -38,13 +40,13 @@
   <main id="maincontent" class="reviews">
 
     <!-- Beginning map -->
-    <section id="map-container">
-      <div id="map"></div>
+    <section id="map-container" role="application" aria-label="Mapbox Maps">
+      <div id="map" aria-labelledby="map-container"></div>
     </section>
     <!-- End map -->
 
     <!-- Beginning restaurant -->
-    <section id="restaurant-container">
+    <section id="restaurant-container" role="contentinfo" aria-label="Restaurant Information">
       <h2 id="restaurant-name"></h2>
       <img id="restaurant-img">
       <p id="restaurant-cuisine"></p>
@@ -62,7 +64,7 @@
     <!-- end restaurant -->
 
     <!-- Beginning reviews -->
-    <section id="reviews-container">
+    <section id="reviews-container" role="contentinfo" aria-label="Restaurant Reviews">
       <ul id="reviews-list"></ul>
     </section>
     <!-- End reviews -->
@@ -80,7 +82,7 @@
   <!-- Database helpers -->
   <script type="text/javascript" src="js/dbhelper.js"></script>
   <!-- Main javascript file -->
-  <script type="application/javascript" charset="utf-8" src="js/map_key.js"></script>
+  <script type="application/javascript" charset="utf-8" src="js/secret.js"></script>
   <script type="text/javascript" src="js/restaurant_info.js"></script>
   <!-- Google Maps -->
  <!--  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_tKbW6A5pQ-eupxI56myUnHLqYCzOjKo&libraries=places&callback=initMap"></script> -->
