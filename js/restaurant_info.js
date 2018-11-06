@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 /**
- * Initialize leaflet map
+ * Initialize leaflet map.
  */
 initMap = () => {
   fetchRestaurantFromURL((error, restaurant) => {
@@ -34,11 +34,11 @@ initMap = () => {
           DBHelper.mapMarkerForRestaurant(self.restaurant, self.newMap);
         } catch(error) {
           console.log("Map couldn't be initialized", error);
-          // If an error occurred while trying to initialize the map, set map as offline
+          // If an error occurred while trying to initialize the map, set map as offline.
           DBHelper.mapOffline();
         }
       } else {
-        //  If app detects we're offline, set map as offline
+        //  If app detects we're offline, set map as offline.
         DBHelper.mapOffline();
       }
 
@@ -89,7 +89,7 @@ fetchRestaurantFromURL = (callback) => {
 }
 
 /**
- * Create restaurant HTML and add it to the webpage
+ * Create restaurant HTML and add it to the webpage.
  */
 fillRestaurantHTML = (restaurant = self.restaurant) => {
   const name = document.getElementById('restaurant-name');
