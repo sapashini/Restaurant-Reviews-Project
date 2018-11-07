@@ -1,3 +1,8 @@
+/*
+* I like to acknoledge the inspiration and guide from MWS Restaurant Reviews Project
+A Walkthrough by Alexandro Perez.
+*/
+
 let restaurants,
   neighborhoods,
   cuisines

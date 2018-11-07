@@ -1,3 +1,8 @@
+/*
+* I like to acknoledge the inspiration and guide from MWS Restaurant Reviews Project
+A Walkthrough by Alexandro Perez.
+*/
+
 const appName = "restaurant-reviews-app"
 // Create a chache variable for recycling of chaches.
 const staticCacheName = appName + "-v1.0";

@@ -1,13 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
 
-/**, *:before, *:after {
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  
-}*/
-
 body,td,th,p{
   font-family: Arial, Helvetica, sans-serif;
   font-size: 10pt;
@@ -18,7 +11,6 @@ body {
   background-color: #fdfdfd;
   margin: 0;
   position:relative;
-  /*width: 599px;*/
   max-width: 361px;
   margin-left: auto;
   margin-right: auto;
@@ -65,7 +57,6 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 /* ====================== Navigation ====================== */
 nav {
   width: 100%;
-  /*height: 80px;*/
   background-color: #252831;
   text-align:center;
 }
@@ -173,7 +164,6 @@ nav h1 a {
   text-align: left;
   min-width: 270px;
   max-width: 300px;
-
 }
 #restaurants-list .restaurant-img {
   background-color: #ccc;
@@ -181,7 +171,6 @@ nav h1 a {
   margin-right: 10px;
   max-width: 100%;
   min-width: 100%;
-  /*max-height: 248px;*/
   overflow: hidden;
 }
 
@@ -272,8 +261,6 @@ nav h1 a {
 #restaurant-container, #reviews-container {
   border-bottom: 1px solid #d9d9d9;
   border-top: 1px solid #fff;
-  /*padding: 140px 40px 30px;
-  width: 50%;*/
 }
 #reviews-container {
   padding: 30px 40px 80px;
@@ -298,11 +285,8 @@ nav h1 a {
   overflow: hidden;
   padding: 0 20px 20px;
   position: relative;
-  /*width: 85%;*/
 }
-/*#reviews-list li p {
-  margin: 0 0 10px;
-}*/
+
 #restaurant-hours td {
   color: #666;
 }
@@ -327,9 +311,6 @@ nav h1 a {
 #restaurant-hours tr td:first-of-type {
   width: 10%;
 }
-/*#restaurant-hours tr td:last-of-type {
-  width: 40%;
-}*/
 
 .skip-link {
     display: block;

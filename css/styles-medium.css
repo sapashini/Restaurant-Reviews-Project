@@ -1,4 +1,19 @@
 body {
     min-width: 770px;
 }
+.skip-link {
+	font-size: 16px;
+}
+#map-aria-description {
+	font-size: 16px;
+}
+#neighborhoods-select {
+	font-size: 16px;
+}
+#cuisines-select {
+	font-size: 16px;
+}
+#restaurants-list p {
+	font-size: 18pt;
+}
 
