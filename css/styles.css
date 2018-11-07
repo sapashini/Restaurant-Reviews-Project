@@ -106,6 +106,9 @@ nav h1 a {
     color: #0275d8;
     text-decoration: none;
 }
+#breadcrumb li a:focus,#breadcrumb li a:hover {
+  background: #F4D03F;
+}
 
 /* Add a color on mouse-over */
 #breadcrumb li a:hover {
