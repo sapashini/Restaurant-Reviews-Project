@@ -1,4 +1,4 @@
- #restaurants-list li {
-    max-width: 45%;
-  }
+body {
+    min-width: 770px;
+}
 

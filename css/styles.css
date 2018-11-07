@@ -18,7 +18,8 @@ body {
   background-color: #fdfdfd;
   margin: 0;
   position:relative;
-  width: 1200px;
+  /*width: 599px;*/
+  max-width: 361px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -50,7 +51,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  
+  justify-content: center;
 }
 #footer {
   background-color: #262932;
@@ -323,9 +324,9 @@ nav h1 a {
 #restaurant-hours tr td:first-of-type {
   width: 10%;
 }
-#restaurant-hours tr td:last-of-type {
+/*#restaurant-hours tr td:last-of-type {
   width: 40%;
-}
+}*/
 
 .skip-link {
     display: block;
