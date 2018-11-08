@@ -15,7 +15,10 @@ var allCaches = [staticCacheName, contentImgsCache]; // Cache all your static as
 
 self.addEventListener('install', function (event) {
   event.waitUntil(caches.open(staticCacheName).then(function (cache) {
-    return cache.addAll(['/', '/restaurant.html', '/css/styles.css', '/css/styles-medium.css', '/css/styles-large.css', '/js/dbhelper.js', '/js/secret.js', '/js/main.js', '/js/restaurant_info.js', '/js/register-sw.js', '/data/restaurants.json']);
+    return cache.addAll(['/', '/restaurant.html', '/css/styles.css', '/css/styles-medium.css', '/css/styles-large.css', //'/js/dbhelper.js',
+    //'/js/secret.js',
+    '/js/main.js', '/js/restaurant_info.js', //'/js/register-sw.js',
+    '/data/restaurants.json']);
   }));
 }); // On activate, delete any old static cache if its name changes.
 
