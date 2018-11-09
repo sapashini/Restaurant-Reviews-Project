@@ -1,7 +1,18 @@
+/*
+* I wil like to acknoledge the inspiration and guide I got from MWS Restaurant Reviews Project.
+* A Walkthrough by Alexandro Perez.Also,I adapted some of the walk through codes to make mine fully functionable.
+*/
+
+/*
+* Modules import.
+*/
 import DBHelper from './dbhelper';
 import SECRET from './secret';
-//import './register-sw';
+import './register-sw';
 
+/*
+* Global variables.
+*/
 let restaurant;
 var newMap;
 
@@ -19,7 +30,7 @@ const initMap = () => {
   fetchRestaurantFromURL((error, restaurant) => {
     if (error) { // Got an error!
       console.error(error);
-    } else {      
+    } else {
       if (navigator.onLine) {
         try {
           newMap = L.map('map', {
@@ -50,22 +61,6 @@ const initMap = () => {
     }
   });
 }
-
-/* window.initMap = () => {
-  fetchRestaurantFromURL((error, restaurant) => {
-    if (error) { // Got an error!
-      console.error(error);
-    } else {
-      self.map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 16,
-        center: restaurant.latlng,
-        scrollwheel: false
-      });
-      fillBreadcrumb();
-      DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
-    }
-  });
-} */
 
 /**
  * Get current restaurant from page URL.
@@ -113,11 +108,11 @@ const fillRestaurantHTML = (restaurant = self.restaurant) => {
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
 
-  // fill operating hours
+  // Fill operating hours.
   if (restaurant.operating_hours) {
     fillRestaurantHoursHTML();
   }
-  // fill reviews
+  // Fill reviews.
   fillReviewsHTML();
 }
 

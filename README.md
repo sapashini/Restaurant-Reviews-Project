@@ -26,5 +26,11 @@ The project uses [leafletjs](https://leafletjs.com/) with [Mapbox](https://www.m
 
 Most of the code in the project has been written to the ES6 JavaScript specification for compatibility with modern web browsers and future proofing JavaScript code. As much as possible, I tried to maintain the use of ES6 in any additional JavaScript I wrote.
 
+### How to run this application.
+1. If you are running the app locally,ensure you have node.js or install one.
 
+2. Then, clone and have Sails Server for Phase 2 running on localhost:1337.
 
+3. CD to the Phase 2 clone project and install npm-'npm install'.
+
+4. Then,run 'gulp sync' to have BrowserSync serve the app on localhost:8000.

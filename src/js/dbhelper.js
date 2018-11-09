@@ -1,3 +1,11 @@
+/*
+* I wil like to acknoledge the inspiration and guide I got from MWS Restaurant Reviews Project.
+* A Walkthrough by Alexandro Perez.Also,I adapted some of the walk through codes to make mine fully functionable.
+*/
+
+/*
+* Module import.
+*/
 import dbPromise from './dbpromise';
 
 /**
@@ -29,18 +37,18 @@ export default class DBHelper {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', `${DBHelper.API_URL}/restaurants`);
     xhr.onload = () => {
-      if (xhr.status === 200) { // Got a success response from server!
+      if (xhr.status === 200) {
         const restaurants = JSON.parse(xhr.responseText);
         dbPromise.putRestaurants(restaurants);
         callback(null, restaurants);
-      } else { // Oops!. Got an error from server.
+      } else {
         console.log(`Request failed. Returned status of ${xhr.status}, trying idb...`);
-        // if xhr request isn't code 200, try idb
+        // If xhr request isn't code 200, try idb.
         dbPromise.getRestaurants().then(idbRestaurants => {
-          // if we get back more than 1 restaurant from idb, return idbRestaurants
+          // If we get back more than 1 restaurant from idb, return idbRestaurants.
           if (idbRestaurants.length > 0) {
             callback(null, idbRestaurants)
-          } else { // if we got back 0 restaurants return an error
+          } else { // If we got back 0 restaurants return an error.
             callback('No restaurants found in idb', null);
           }
         });
@@ -49,7 +57,7 @@ export default class DBHelper {
     // XHR needs error handling for when server is down (doesn't respond or sends back codes)
     xhr.onerror = () => {
       console.log('Error while trying XHR, trying idb...');
-      // try idb, and if we get restaurants back, return them, otherwise return an error
+      // Try idb, and if we get restaurants back, return them, otherwise return an error
       dbPromise.getRestaurants().then(idbRestaurants => {
         if (idbRestaurants.length > 0) {
           callback(null, idbRestaurants)
@@ -69,11 +77,11 @@ export default class DBHelper {
       if (!response.ok) return Promise.reject("Restaurant couldn't be fetched from network");
       return response.json();
     }).then(fetchedRestaurant => {
-      // if restaurant could be fetched from network:
+      // If restaurant could be fetched from network:
       dbPromise.putRestaurants(fetchedRestaurant);
       return callback(null, fetchedRestaurant);
     }).catch(networkError => {
-      // if restaurant couldn't be fetched from network:
+      // If restaurant couldn't be fetched from network:
       console.log(`${networkError}, trying idb.`);
       dbPromise.getRestaurants(id).then(idbRestaurant => {
         if (!idbRestaurant) return callback("Restaurant not found in idb either", null);
@@ -86,12 +94,12 @@ export default class DBHelper {
    * Fetch restaurants by a cuisine type with proper error handling.
    */
   static fetchRestaurantByCuisine(cuisine, callback) {
-    // Fetch all restaurants  with proper error handling
+    // Fetch all restaurants  with proper error handling.
     DBHelper.fetchRestaurants((error, restaurants) => {
       if (error) {
         callback(error, null);
       } else {
-        // Filter restaurants to have only given cuisine type
+        // Filter restaurants to have only given cuisine type.
         const results = restaurants.filter(r => r.cuisine_type == cuisine);
         callback(null, results);
       }
@@ -107,7 +115,7 @@ export default class DBHelper {
       if (error) {
         callback(error, null);
       } else {
-        // Filter restaurants to have only given neighborhood
+        // Filter restaurants to have only given neighborhood.
         const results = restaurants.filter(r => r.neighborhood == neighborhood);
         callback(null, results);
       }
@@ -124,10 +132,10 @@ export default class DBHelper {
         callback(error, null);
       } else {
         let results = restaurants
-        if (cuisine != 'all') { // filter by cuisine
+        if (cuisine != 'all') { // filter by cuisine.
           results = results.filter(r => r.cuisine_type == cuisine);
         }
-        if (neighborhood != 'all') { // filter by neighborhood
+        if (neighborhood != 'all') { // filter by neighborhood.
           results = results.filter(r => r.neighborhood == neighborhood);
         }
         callback(null, results);
@@ -144,9 +152,9 @@ export default class DBHelper {
       if (error) {
         callback(error, null);
       } else {
-        // Get all neighborhoods from all restaurants
+        // Get all neighborhoods from all restaurants.
         const neighborhoods = restaurants.map((v, i) => restaurants[i].neighborhood)
-        // Remove duplicates from neighborhoods
+        // Remove duplicates from neighborhoods.
         const uniqueNeighborhoods = neighborhoods.filter((v, i) => neighborhoods.indexOf(v) == i)
         callback(null, uniqueNeighborhoods);
       }
@@ -162,9 +170,9 @@ export default class DBHelper {
       if (error) {
         callback(error, null);
       } else {
-        // Get all cuisines from all restaurants
+        // Get all cuisines from all restaurants.
         const cuisines = restaurants.map((v, i) => restaurants[i].cuisine_type)
-        // Remove duplicates from cuisines
+        // Remove duplicates from cuisines.
         const uniqueCuisines = cuisines.filter((v, i) => cuisines.indexOf(v) == i)
         callback(null, uniqueCuisines);
       }
@@ -212,7 +220,7 @@ export default class DBHelper {
    * Map marker for a restaurant.
    */
    static mapMarkerForRestaurant(restaurant, map) {
-    // https://leafletjs.com/reference-1.3.0.html#marker  
+    // https://leafletjs.com/reference-1.3.0.html#marker.
     const marker = new L.marker([restaurant.latlng.lat, restaurant.latlng.lng],
       {title: restaurant.name,
       alt: restaurant.name,
@@ -220,24 +228,15 @@ export default class DBHelper {
       })
       marker.addTo(map);
     return marker;
-  } 
-  /* static mapMarkerForRestaurant(restaurant, map) {
-    const marker = new google.maps.Marker({
-      position: restaurant.latlng,
-      title: restaurant.name,
-      url: DBHelper.urlForRestaurant(restaurant),
-      map: map,
-      animation: google.maps.Animation.DROP}
-    );
-    return marker;
-  } */
+  }
 
+  // Warning message when map is offline.
   static mapOffline() {
     const map = document.getElementById('map');
     map.className = "map-offline";
     map.innerHTML = `<div class="warning-icon">!</div>
-    <div class="warning-message">We're having problems loading Maps</div>
-    <div class="warning-suggestion">Are you offline? If you need to see a map, please check back later.</div>`;
+    <div class="warning-message">Map can't load at this moment!</div>
+    <div class="warning-suggestion">Are you offline? Check your network connection and try again plese.</div>`;
   }
 
 }

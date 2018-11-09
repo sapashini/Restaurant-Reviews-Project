@@ -356,22 +356,20 @@ function () {
 
       xhr.onload = function () {
         if (xhr.status === 200) {
-          // Got a success response from server!
           var restaurants = JSON.parse(xhr.responseText);
 
           _dbpromise.default.putRestaurants(restaurants);
 
           callback(null, restaurants);
         } else {
-          // Oops!. Got an error from server.
-          console.log("Request failed. Returned status of ".concat(xhr.status, ", trying idb...")); // if xhr request isn't code 200, try idb
+          console.log("Request failed. Returned status of ".concat(xhr.status, ", trying idb...")); // If xhr request isn't code 200, try idb.
 
           _dbpromise.default.getRestaurants().then(function (idbRestaurants) {
-            // if we get back more than 1 restaurant from idb, return idbRestaurants
+            // If we get back more than 1 restaurant from idb, return idbRestaurants.
             if (idbRestaurants.length > 0) {
               callback(null, idbRestaurants);
             } else {
-              // if we got back 0 restaurants return an error
+              // If we got back 0 restaurants return an error.
               callback('No restaurants found in idb', null);
             }
           });
@@ -380,7 +378,7 @@ function () {
 
 
       xhr.onerror = function () {
-        console.log('Error while trying XHR, trying idb...'); // try idb, and if we get restaurants back, return them, otherwise return an error
+        console.log('Error while trying XHR, trying idb...'); // Try idb, and if we get restaurants back, return them, otherwise return an error
 
         _dbpromise.default.getRestaurants().then(function (idbRestaurants) {
           if (idbRestaurants.length > 0) {
@@ -404,12 +402,12 @@ function () {
         if (!response.ok) return Promise.reject("Restaurant couldn't be fetched from network");
         return response.json();
       }).then(function (fetchedRestaurant) {
-        // if restaurant could be fetched from network:
+        // If restaurant could be fetched from network:
         _dbpromise.default.putRestaurants(fetchedRestaurant);
 
         return callback(null, fetchedRestaurant);
       }).catch(function (networkError) {
-        // if restaurant couldn't be fetched from network:
+        // If restaurant couldn't be fetched from network:
         console.log("".concat(networkError, ", trying idb."));
 
         _dbpromise.default.getRestaurants(id).then(function (idbRestaurant) {
@@ -425,12 +423,12 @@ function () {
   }, {
     key: "fetchRestaurantByCuisine",
     value: function fetchRestaurantByCuisine(cuisine, callback) {
-      // Fetch all restaurants  with proper error handling
+      // Fetch all restaurants  with proper error handling.
       DBHelper.fetchRestaurants(function (error, restaurants) {
         if (error) {
           callback(error, null);
         } else {
-          // Filter restaurants to have only given cuisine type
+          // Filter restaurants to have only given cuisine type.
           var results = restaurants.filter(function (r) {
             return r.cuisine_type == cuisine;
           });
@@ -450,7 +448,7 @@ function () {
         if (error) {
           callback(error, null);
         } else {
-          // Filter restaurants to have only given neighborhood
+          // Filter restaurants to have only given neighborhood.
           var results = restaurants.filter(function (r) {
             return r.neighborhood == neighborhood;
           });
@@ -473,14 +471,14 @@ function () {
           var results = restaurants;
 
           if (cuisine != 'all') {
-            // filter by cuisine
+            // filter by cuisine.
             results = results.filter(function (r) {
               return r.cuisine_type == cuisine;
             });
           }
 
           if (neighborhood != 'all') {
-            // filter by neighborhood
+            // filter by neighborhood.
             results = results.filter(function (r) {
               return r.neighborhood == neighborhood;
             });
@@ -502,10 +500,10 @@ function () {
         if (error) {
           callback(error, null);
         } else {
-          // Get all neighborhoods from all restaurants
+          // Get all neighborhoods from all restaurants.
           var neighborhoods = restaurants.map(function (v, i) {
             return restaurants[i].neighborhood;
-          }); // Remove duplicates from neighborhoods
+          }); // Remove duplicates from neighborhoods.
 
           var uniqueNeighborhoods = neighborhoods.filter(function (v, i) {
             return neighborhoods.indexOf(v) == i;
@@ -526,10 +524,10 @@ function () {
         if (error) {
           callback(error, null);
         } else {
-          // Get all cuisines from all restaurants
+          // Get all cuisines from all restaurants.
           var cuisines = restaurants.map(function (v, i) {
             return restaurants[i].cuisine_type;
-          }); // Remove duplicates from cuisines
+          }); // Remove duplicates from cuisines.
 
           var uniqueCuisines = cuisines.filter(function (v, i) {
             return cuisines.indexOf(v) == i;
@@ -586,7 +584,7 @@ function () {
   }, {
     key: "mapMarkerForRestaurant",
     value: function mapMarkerForRestaurant(restaurant, map) {
-      // https://leafletjs.com/reference-1.3.0.html#marker  
+      // https://leafletjs.com/reference-1.3.0.html#marker.
       var marker = new L.marker([restaurant.latlng.lat, restaurant.latlng.lng], {
         title: restaurant.name,
         alt: restaurant.name,
@@ -594,24 +592,14 @@ function () {
       });
       marker.addTo(map);
       return marker;
-    }
-    /* static mapMarkerForRestaurant(restaurant, map) {
-      const marker = new google.maps.Marker({
-        position: restaurant.latlng,
-        title: restaurant.name,
-        url: DBHelper.urlForRestaurant(restaurant),
-        map: map,
-        animation: google.maps.Animation.DROP}
-      );
-      return marker;
-    } */
+    } // Warning message when map is offline.
 
   }, {
     key: "mapOffline",
     value: function mapOffline() {
       var map = document.getElementById('map');
       map.className = "map-offline";
-      map.innerHTML = "<div class=\"warning-icon\">!</div>\n    <div class=\"warning-message\">We're having problems loading Maps</div>\n    <div class=\"warning-suggestion\">Are you offline? If you need to see a map, please check back later.</div>";
+      map.innerHTML = "<div class=\"warning-icon\">!</div>\n    <div class=\"warning-message\">Map can't load at this moment!</div>\n    <div class=\"warning-suggestion\">Are you offline? Check your network connection and try again plese.</div>";
     }
   }, {
     key: "API_URL",
@@ -655,8 +643,16 @@ var _idb = _interopRequireDefault(require("idb"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/*
+* I wil like to acknoledge the inspiration and guide I got from MWS Restaurant Reviews Project.
+* A Walkthrough by Alexandro Perez.Also,I adapted some of the walk through codes to make mine fully functionable.
+*/
+
+/*
+* Module import.
+*/
 var dbPromise = {
-  // creation and updating of database happens here.
+  // creation and updating of database.
   db: _idb.default.open('restaurant-reviews-db', 1, function (upgradeDb) {
     switch (upgradeDb.oldVersion) {
       case 0:
@@ -708,13 +704,22 @@ var _dbhelper = _interopRequireDefault(require("./dbhelper"));
 
 var _secret = _interopRequireDefault(require("./secret"));
 
+require("./register-sw");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /*
-* I like to acknoledge the inspiration and guide from MWS Restaurant Reviews Project
-A Walkthrough by Alexandro Perez.
+* I wil like to acknoledge the inspiration and guide I got from MWS Restaurant Reviews Project.
+* A Walkthrough by Alexandro Perez.Also,I adapted some of the walk through codes to make mine fully functionable.
 */
-//import './register-sw';
+
+/*
+* Modules import.
+*/
+
+/*
+* Global variables.
+*/
 var restaurants, neighborhoods, cuisines;
 var newMap;
 var markers = [];
@@ -723,7 +728,7 @@ var markers = [];
  */
 
 document.addEventListener('DOMContentLoaded', function (event) {
-  initMap(); // added 
+  initMap(); // added
 
   fetchNeighborhoods();
   fetchCuisines();
@@ -820,19 +825,6 @@ var initMap = function initMap() {
 
   updateRestaurants();
 };
-/* window.initMap = () => {
-  let loc = {
-    lat: 40.722216,
-    lng: -73.987501
-  };
-  self.map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
-    center: loc,
-    scrollwheel: false
-  });
-  updateRestaurants();
-} */
-
 /**
  * Update page and map for current restaurants.
  */
@@ -940,7 +932,7 @@ var addMarkersToMap = function addMarkersToMap() {
   // if either newMap or L (leaflet) aren't defined exit early.
   if (!newMap || !L) return;
   restaurants.forEach(function (restaurant) {
-    // Add marker to the map
+    // Add marker to the map.
     var marker = _dbhelper.default.mapMarkerForRestaurant(restaurant, newMap);
 
     marker.on("click", onClick);
@@ -952,18 +944,24 @@ var addMarkersToMap = function addMarkersToMap() {
     self.markers.push(marker);
   });
 };
-/* addMarkersToMap = (restaurants = self.restaurants) => {
-  restaurants.forEach(restaurant => {
-    // Add marker to the map
-    const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);
-    google.maps.event.addListener(marker, 'click', () => {
-      window.location.href = marker.url
-    });
-    self.markers.push(marker);
-  });
-} */
 
-},{"./dbhelper":2,"./secret":5}],5:[function(require,module,exports){
+},{"./dbhelper":2,"./register-sw":5,"./secret":6}],5:[function(require,module,exports){
+"use strict";
+
+/*
+* I wil like to acknoledge the inspiration and guide I got from MWS Restaurant Reviews Project.
+* A Walkthrough by Alexandro Perez.Also,I adapted some of the walk through codes to make mine fully functionable.
+*/
+// Register service worker and check if it'ssupported.
+if (navigator.serviceWorker) {
+  navigator.serviceWorker.register('/sw.js').then(function (reg) {
+    console.log("Service Worker has been registered successfully!");
+  }).catch(function (event) {
+    console.log("Couldn't register service worker... \n", e);
+  });
+}
+
+},{}],6:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -977,6 +975,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+// Create object for the map box API key.
 var SECRET =
 /*#__PURE__*/
 function () {

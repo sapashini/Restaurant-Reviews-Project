@@ -1,11 +1,18 @@
 /*
-* I like to acknoledge the inspiration and guide from MWS Restaurant Reviews Project
-A Walkthrough by Alexandro Perez.
+* I wil like to acknoledge the inspiration and guide I got from MWS Restaurant Reviews Project.
+* A Walkthrough by Alexandro Perez.Also,I adapted some of the walk through codes to make mine fully functionable.
+*/
+
+/*
+* Modules import.
 */
 import DBHelper from './dbhelper';
 import SECRET from './secret';
-//import './register-sw';
+import './register-sw';
 
+/*
+* Global variables.
+*/
 let restaurants,
   neighborhoods,
   cuisines
@@ -16,7 +23,7 @@ var markers = []
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
-  initMap(); // added 
+  initMap(); // added
   fetchNeighborhoods();
   fetchCuisines();
 });
@@ -107,18 +114,6 @@ const initMap = () => {
 
   updateRestaurants();
 }
-/* window.initMap = () => {
-  let loc = {
-    lat: 40.722216,
-    lng: -73.987501
-  };
-  self.map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
-    center: loc,
-    scrollwheel: false
-  });
-  updateRestaurants();
-} */
 
 /**
  * Update page and map for current restaurants.
@@ -212,7 +207,6 @@ const createRestaurantHTML = (restaurant) => {
   more.tabindex="3"
   div.append(more)
 
-
   return li
 }
 
@@ -223,7 +217,7 @@ const addMarkersToMap = (restaurants = self.restaurants) => {
   // if either newMap or L (leaflet) aren't defined exit early.
   if (!newMap || !L) return;
   restaurants.forEach(restaurant => {
-    // Add marker to the map
+    // Add marker to the map.
     const marker = DBHelper.mapMarkerForRestaurant(restaurant, newMap);
     marker.on("click", onClick);
     function onClick() {
@@ -233,14 +227,5 @@ const addMarkersToMap = (restaurants = self.restaurants) => {
   });
 
 }
-/* addMarkersToMap = (restaurants = self.restaurants) => {
-  restaurants.forEach(restaurant => {
-    // Add marker to the map
-    const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);
-    google.maps.event.addListener(marker, 'click', () => {
-      window.location.href = marker.url
-    });
-    self.markers.push(marker);
-  });
-} */
+
 

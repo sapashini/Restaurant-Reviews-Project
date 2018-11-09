@@ -1,6 +1,6 @@
 /*
-* I like to acknoledge the inspiration and guide from MWS Restaurant Reviews Project
-A Walkthrough by Alexandro Perez.
+* I wil like to acknoledge the inspiration and guide I got from MWS Restaurant Reviews Project.
+* A Walkthrough by Alexandro Perez.Also,I adapted some of the walk through codes to make mine fully functionable.
 */
 
 // Register service worker and check if it'ssupported.

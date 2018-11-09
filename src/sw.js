@@ -1,11 +1,11 @@
 /*
-* I like to acknoledge the inspiration and guide from MWS Restaurant Reviews Project
-A Walkthrough by Alexandro Perez.
+* I wil like to acknoledge the inspiration and guide I got from MWS Restaurant Reviews Project.
+* A Walkthrough by Alexandro Perez.Also,I adapted some of the walk through codes to make mine fully functionable.
 */
 
 const appName = "restaurant-reviews-app"
 // Create a chache variable for recycling of chaches.
-const staticCacheName = appName + "-v1.0";
+const staticCacheName = appName + "-v2.0";
 
 // Create cache for magery.
 const contentImgsCache = appName + "-images";
@@ -26,12 +26,17 @@ self.addEventListener('install', function(event) {
         '/css/styles.css',
         '/css/styles-medium.css',
         '/css/styles-large.css',
-        //'/js/dbhelper.js',
-        //'/js/secret.js',
         '/js/main.js',
         '/js/restaurant_info.js',
-        //'/js/register-sw.js',
-        '/data/restaurants.json'
+        '/manifest.json',
+        'images/icons/icon-72x72.png',
+        'images/icons/icon-96x96.png',
+        'images/icons/icon-128x128.png',
+        'images/icons/icon-144x144.png',
+        'images/icons/icon-152x152.png',
+        'images/icons/icon-192x192.png',
+        'images/icons/icon-384x384.png',
+        'images/icons/icon-512x512.png'
       ]);
     })
   );
@@ -57,11 +62,10 @@ self.addEventListener('activate', function(event) {
 self.addEventListener('fetch', function(event) {
   const requestUrl = new URL(event.request.url);
 
-  // only highjack request made to our app (not mapbox maps or leaflet, for example)
+  // Only highjack request made to our app.
   if (requestUrl.origin === location.origin) {
 
-    // Since requests made to restaurant.html have search params (like ?id=1), the url can't be used as the
-    // key to access the cache, so just respondWith restaurant.html if pathname startsWith '/restaurant.html'
+    // RespondWith restaurant.html if pathname startsWith '/restaurant.html'
     if (requestUrl.pathname.startsWith('/restaurant.html')) {
       event.respondWith(caches.match('/restaurant.html'));
       return; // Done handling request, so exit early.
@@ -85,14 +89,12 @@ event.respondWith(
 function serveImage(request) {
   let imageStorageUrl = request.url;
 
-  // Make a new URL with a stripped suffix and extension from the request url
-  // i.e. /img/1-medium.jpg  will become  /img/1
-  // we'll use this as the KEY for storing image into cache
+  // Make a new URL with a stripped suffix and extension from the request url.
   imageStorageUrl = imageStorageUrl.replace(/-small\.\w{3}|-medium\.\w{3}|-large\.\w{3}/i, '');
 
   return caches.open(contentImgsCache).then(function(cache) {
     return cache.match(imageStorageUrl).then(function(response) {
-      // if image is in cache, return it, else fetch from network, cache a clone, then return network response
+      // if image is in cache, return it, else fetch from network, cache a clone, then return network response.
       return response || fetch(request).then(function(networkResponse) {
         cache.put(imageStorageUrl, networkResponse.clone());
         return networkResponse;
